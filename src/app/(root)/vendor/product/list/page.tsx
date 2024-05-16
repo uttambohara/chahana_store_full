@@ -5,11 +5,11 @@ import { PER_PAGE } from "@/constant";
 
 import SectionHeading from "@/components/Global/SectionHeading";
 import PaginationControl from "@/components/Table/PaginationControl";
-import PaginationInput from "@/components/Table/PaginationInput";
+import TableSearchInput from "@/components/Table/TableSearchInput";
 import getUser from "@/utils/query/get-user";
 import {
-  getAllProducts,
   getAllProductsByVendorId,
+  getAllProductsWithAdvancedFiltering,
 } from "@/utils/query/supabase-database";
 import { notFound, redirect } from "next/navigation";
 import { VENDOR_PARAM_WITH_LIST, columns } from "./columns";
@@ -21,8 +21,8 @@ export default async function ProductList({
 }) {
   const { data: user } = await getUser();
   if (!user?.id) redirect("/auth/login");
-
   const userId = user.id;
+
   const search = searchParams["search"];
   const page = searchParams["page"] ?? 1;
   const limit = searchParams["limit"] ?? PER_PAGE;
@@ -47,7 +47,15 @@ export default async function ProductList({
   Products = products;
   // ADMIN
   if (user.role === "ADMIN") {
-    const { products: adminProducts, error } = await getAllProducts();
+    const { products: adminProducts, error } =
+      await getAllProductsWithAdvancedFiltering({
+        sort,
+        order,
+        limit,
+        search,
+        start,
+        end,
+      });
     Products = adminProducts;
   }
 
@@ -64,7 +72,7 @@ export default async function ProductList({
     <Container screen={"lg"}>
       <div className="space-y-6">
         <SectionHeading title={"Manage products"} description={""} />
-        <PaginationInput
+        <TableSearchInput
           filterBy={"name"}
           urlPathParam={VENDOR_PARAM_WITH_LIST}
           className="pl-8 w-[20rem]"

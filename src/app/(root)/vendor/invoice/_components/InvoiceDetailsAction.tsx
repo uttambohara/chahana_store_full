@@ -51,11 +51,13 @@ export default function InvoiceDetailsAction({
     <Button
       onClick={() =>
         setOpen(
-          <CustomModal title={""} className="min-w-[70%] h-[80%] overflow-auto">
+          <CustomModal
+            title={""}
+            className="min-w-[60%] max-md:min-w-[80%] h-[80%] overflow-auto"
+          >
             <div className="bg-white dark:bg-gray-950 overflow-hidden rounded-md p-2">
               <h1 className="text-3xl mb-8">
-                Invoice of {rowDataWhichIsInvoice.customer?.users?.first_name}{" "}
-                {rowDataWhichIsInvoice.customer?.users?.last_name}
+                Invoice #{rowDataWhichIsInvoice.id}
               </h1>
               <div className="flex justify-between text-sm text-muted-foreground px-6">
                 <div className="flex items-center gap-12">
@@ -92,16 +94,16 @@ export default function InvoiceDetailsAction({
                     </div>
                   </div>
                 </div>
-                <div className="space-y-1 bg-zinc-100 p-3">
+                <div className="space-y-1 bg-zinc-100 p-4 shadow-md">
                   <div className="font-bold text-black">Details</div>
                   <div>Invoice ID: #{rowDataWhichIsInvoice.id}</div>
                   <p>
-                    Due date:{" "}
-                    {format(rowDataWhichIsInvoice.dueDate!, "yyyy MMM dd")}
-                  </p>
-                  <p>
                     Created At:{" "}
                     {format(rowDataWhichIsInvoice.created_at, "yyyy MMM dd")}
+                  </p>
+                  <p>
+                    Due date:{" "}
+                    {format(rowDataWhichIsInvoice.dueDate!, "yyyy MMM dd")}
                   </p>
                 </div>
               </div>
@@ -171,7 +173,7 @@ export default function InvoiceDetailsAction({
                 </div>
                 <div className="flex">
                   <Card className="text-sm border-none w-[15rem] ml-auto">
-                    <CardContent className="grid gap-4 border-l px-4">
+                    <CardContent className="grid gap-2 px-4 py-2">
                       <div className="flex items-center justify-between">
                         <div>Subtotal</div>
                         <div> {formatCurrencyToNPR(revenueTotal)}</div>
@@ -211,7 +213,6 @@ export default function InvoiceDetailsAction({
                               );
                             })}
                             <Separator />
-                            <p>{formatCurrencyToNPR(Number(totalPaid))}</p>
                           </div>
                         </div>
                       </div>

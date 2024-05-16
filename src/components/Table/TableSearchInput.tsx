@@ -12,16 +12,16 @@ import useDebounce from "../Hooks/use-debounce";
 import { Input } from "../ui/input";
 import { Search } from "lucide-react";
 
-type PaginationInputProps = {
+type TableSearchInputProps = {
   filterBy: string;
   urlPathParam: string;
 } & ComponentPropsWithoutRef<"input">;
 
-export default function PaginationInput({
+export default function TableSearchInput({
   filterBy,
   urlPathParam,
   ...other
-}: PaginationInputProps) {
+}: TableSearchInputProps) {
   //...
   const router = useRouter();
   const { inputValue, setInputValue, searchResult } = useDebounce();

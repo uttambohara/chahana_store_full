@@ -2,17 +2,17 @@ import { getInvoicesWithAdvancedFiltering } from "@/actions/supabase/supabaseDat
 import SectionHeading from "@/components/Global/SectionHeading";
 import Container from "@/components/Layout/Container";
 import PaginationControl from "@/components/Table/PaginationControl";
-import PaginationInput from "@/components/Table/PaginationInput";
+import PaginationInput from "@/components/Table/TableSearchInput";
 import { DataTable } from "@/components/Table/data-table";
 import { PER_PAGE } from "@/constant";
 import getUser from "@/utils/query/get-user";
 import {
-  getAllInvoices,
   getAllInvoicesByVendorId,
+  getAllInvoicesWithAdvancedFiltering,
 } from "@/utils/query/supabase-database";
 import { notFound, redirect } from "next/navigation";
-import { VENDOR_INVOICE_PARAM, columns } from "./columns";
 import { VENDOR_ORDER_PARAM } from "../order/columns";
+import { VENDOR_INVOICE_PARAM, columns } from "./columns";
 
 export default async function InvoicePage({
   searchParams,
@@ -51,7 +51,16 @@ export default async function InvoicePage({
   Invoices = invoices;
   // ADMIN
   if (user.role === "ADMIN") {
-    const { invoices: adminInvoices, error } = await getAllInvoices();
+    const { invoices: adminInvoices, error } =
+      await getAllInvoicesWithAdvancedFiltering({
+        sort,
+        order,
+        limit,
+        search,
+        start,
+        end,
+        status,
+      });
     Invoices = adminInvoices;
   }
 

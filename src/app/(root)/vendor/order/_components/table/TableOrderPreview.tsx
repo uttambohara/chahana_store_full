@@ -53,11 +53,11 @@ export default function TableOrderPreview({
     totalAmount,
   } = calculateSummary(revenueTotal);
 
-  const paymentMethod = rowDataWhichIsOrder.payment?.filter(
+  const paymentMethods = rowDataWhichIsOrder.payment?.filter(
     (payment) => payment.order_id === rowDataWhichIsOrder.id
   );
-  if (!paymentMethod) return null;
-  const totalPaid = paymentMethod?.reduce(
+  if (!paymentMethods) return null;
+  const totalPaid = paymentMethods?.reduce(
     (acc, payment) => acc + payment.amount,
     0
   );
@@ -79,21 +79,22 @@ export default function TableOrderPreview({
         setOpen(
           <CustomModal
             title={""}
-            className="min-w-[70%] h-[90%] overflow-auto p-0"
+            className="min-w-[60%] h-[90%] overflow-auto p-0"
           >
             <div className="flex flex-col">
               <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-6">
-                <div className="flex items-center gap-4">
-                  <h1 className="font-semibold md:text-xl">
-                    Order by {rowDataWhichIsOrder.customer?.users?.first_name}{" "}
-                    {rowDataWhichIsOrder.customer?.users?.last_name}{" "}
-                    <span className="font-normal text-gray-500 dark:text-gray-400">
-                      on{" "}
-                      {format(rowDataWhichIsOrder.order_date, "yyyy MMMM dd")}
-                    </span>
-                  </h1>
+                <div className="flex items-center gap-6">
+                  <div>
+                    <h1 className="font-semibold md:text-2xl">
+                      Order #{rowDataWhichIsOrder.id}
+                    </h1>
+                    <div className="text-muted-foreground text-sm">
+                      {format(rowDataWhichIsOrder.order_date, "dd MMMM, yyyy")}
+                    </div>
+                  </div>
                   <TableStatusCell rowDataWhichIsOrder={rowDataWhichIsOrder} />
                 </div>
+
                 <div className="grid md:grid-cols-6 gap-6">
                   <div className="md:col-span-4 lg:col-span-3 xl:col-span-4 flex flex-col gap-6">
                     <Card className="border-none">
@@ -151,7 +152,6 @@ export default function TableOrderPreview({
                                       </div>
                                       <p> {order_product_item.product?.name}</p>
                                     </TableCell>
-
                                     <TableCell>
                                       {order_product_item?.quantity}
                                     </TableCell>
@@ -173,7 +173,7 @@ export default function TableOrderPreview({
                         </Table>
                       </CardContent>
                     </Card>
-                    <Card className="text-sm border-none">
+                    <Card className="text-sm">
                       <CardHeader>
                         <CardTitle>Payment history</CardTitle>
                       </CardHeader>
@@ -239,43 +239,29 @@ export default function TableOrderPreview({
                         </CardHeader>
                         <CardContent className="text-sm">
                           <div className="grid gap-1">
-                            <Link className="text-blue-600 underline" href="#">
+                            <div>
                               {rowDataWhichIsOrder.customer?.users?.first_name}{" "}
                               {rowDataWhichIsOrder.customer?.users?.last_name}
-                            </Link>
-                          </div>
-                        </CardContent>
-                      </div>
-                      <Separator />
-                      <div>
-                        <CardHeader>
-                          <CardTitle>Contact information</CardTitle>
-                        </CardHeader>
-                        <CardContent className="text-sm">
-                          <div className="grid gap-1">
-                            <Link className="text-blue-600" href="#">
-                              {rowDataWhichIsOrder.customer?.users?.email}
-                            </Link>
-                            <div className="text-gray-500 dark:text-gray-400">
-                              {rowDataWhichIsOrder.customer?.users?.phone}
+                            </div>
+                            <div className="grid gap-1">
+                              <p className="text-muted-foreground">
+                                {rowDataWhichIsOrder.customer?.users?.email}
+                              </p>
+                              <div className="text-gray-500 dark:text-gray-400">
+                                {rowDataWhichIsOrder.customer?.users?.phone}
+                              </div>
+                              <div className="text-muted-foreground">
+                                {rowDataWhichIsOrder.shipping_address
+                                  ? rowDataWhichIsOrder.shipping_address
+                                  : rowDataWhichIsOrder.customer?.users
+                                      ?.address}
+                              </div>
                             </div>
                           </div>
                         </CardContent>
                       </div>
                       <Separator />
-                      <div>
-                        <CardHeader>
-                          <CardTitle>Shipping address</CardTitle>
-                        </CardHeader>
-                        <CardContent className="text-sm italic text-muted-foreground">
-                          <div>
-                            {rowDataWhichIsOrder.shipping_address
-                              ? rowDataWhichIsOrder.shipping_address
-                              : rowDataWhichIsOrder.customer?.users?.address}
-                          </div>
-                        </CardContent>
-                      </div>
-                      <Separator />
+
                       <CardHeader>
                         <CardTitle>
                           All payments on this order (already made)

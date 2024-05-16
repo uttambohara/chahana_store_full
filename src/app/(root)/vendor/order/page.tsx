@@ -2,13 +2,13 @@ import { getOrdersWithAdvancedFiltering } from "@/actions/supabase/supabaseDatab
 import SectionHeading from "@/components/Global/SectionHeading";
 import Container from "@/components/Layout/Container";
 import PaginationControl from "@/components/Table/PaginationControl";
-import PaginationInput from "@/components/Table/PaginationInput";
+import PaginationInput from "@/components/Table/TableSearchInput";
 import { DataTable } from "@/components/Table/data-table";
 import { PER_PAGE } from "@/constant";
 import getUser from "@/utils/query/get-user";
 import {
-  getAllOrders,
   getAllOrdersByVendorId,
+  getAllOrdersWithAdvancedFiltering,
 } from "@/utils/query/supabase-database";
 import { notFound, redirect } from "next/navigation";
 import { VENDOR_ORDER_PARAM, columns } from "./columns";
@@ -25,7 +25,7 @@ export default async function OrderList({
   const search = searchParams["search"];
   const page = searchParams["page"] ?? 1;
   const limit = searchParams["limit"] ?? PER_PAGE;
-  const sort = searchParams["sort"] ?? "id"; // Different from list
+  const sort = searchParams["sort"] ?? "id"; // Different from product list
   const order = searchParams["order"] ?? "asc";
   const status = searchParams["status"] ?? "";
 
@@ -50,7 +50,16 @@ export default async function OrderList({
   Orders = orders;
   // ADMIN
   if (user.role === "ADMIN") {
-    const { orders: adminOrders, error } = await getAllOrders();
+    const { orders: adminOrders, error } =
+      await getAllOrdersWithAdvancedFiltering({
+        sort,
+        order,
+        limit,
+        search,
+        start,
+        end,
+        status,
+      });
     Orders = adminOrders;
   }
 

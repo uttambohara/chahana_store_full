@@ -23,7 +23,7 @@ export default function TableCustomerCell({
         />
       </div>
       <div>
-        <div className="font-bold">
+        <div>
           {rowDataWhichIsOrder.customer?.users?.first_name}{" "}
           {rowDataWhichIsOrder.customer?.users?.last_name}
         </div>

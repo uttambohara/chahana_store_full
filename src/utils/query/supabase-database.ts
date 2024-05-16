@@ -29,31 +29,108 @@ export async function getAllInvoicesByVendorId(vendorId: string) {
   return { allInvoicesByVendor, error };
 }
 
-export async function getAllProducts() {
+interface GetAllProductsWithAdvancedFilteringProps {
+  sort: string | string[];
+  order: string | string[];
+  limit: string | number | string[];
+  search: string | string[] | undefined;
+  start: number;
+  end: number;
+}
+
+export async function getAllProductsWithAdvancedFiltering({
+  sort,
+  order,
+  limit,
+  search,
+  start,
+  end,
+}: GetAllProductsWithAdvancedFilteringProps) {
+  const numberConvertedLimit = Number(limit);
   const supabase = supabaseServerClient();
-  let { data: products, error } = await supabase
+  let query = supabase
     .from("product")
-    .select("*, category(*)");
+    .select("*, category(*)")
+    .order(sort as string, { ascending: order === "asc" })
+    .limit(numberConvertedLimit);
+
+  if (search) {
+    query = query.ilike("name", `%${search}%`);
+  }
+  const { data: products, error } = await query.range(start, end);
   return { products, error };
 }
 
-export async function getAllOrders() {
+interface GetAllOrdersWithAdvancedFilteringProps {
+  sort: string | string[];
+  order: string | string[];
+  limit: string | number | string[];
+  search: string | string[] | undefined;
+  start: number;
+  end: number;
+  status: string | string[];
+}
+export async function getAllOrdersWithAdvancedFiltering({
+  sort,
+  order,
+  limit,
+  search,
+  start,
+  end,
+  status,
+}: GetAllOrdersWithAdvancedFilteringProps) {
+  const numberConvertedLimit = Number(limit);
   const supabase = supabaseServerClient();
-  let { data: orders, error } = await supabase
+  let query = supabase
     .from("order")
     .select(
       "*, product(*), customer(*, users(*)), users(*), order_product(*, product(*)), payment(*)"
-    );
+    )
+    .order(sort as string, { ascending: order === "asc" })
+    .limit(numberConvertedLimit);
+
+  if (search) {
+    query = query.ilike("name", `%${search}%`);
+  }
+  const { data: orders, error } = await query.range(start, end);
   return { orders, error };
 }
 
-export async function getAllInvoices() {
+interface GetAllInvoicesWithAdvancedFilteringProps {
+  sort: string | string[];
+  order: string | string[];
+  limit: string | number | string[];
+  search: string | string[] | undefined;
+  start: number;
+  end: number;
+  status: string | string[];
+}
+
+export async function getAllInvoicesWithAdvancedFiltering({
+  sort,
+  order,
+  limit,
+  search,
+  start,
+  end,
+  status,
+}: GetAllInvoicesWithAdvancedFilteringProps) {
+  const numberConvertedLimit = Number(limit);
   const supabase = supabaseServerClient();
-  let { data: invoices, error } = await supabase
+  let query = supabase
     .from("invoice")
     .select(
       "*, order(*, product(*), order_product(*, product(*))), users(*), payment(*),  customer(*, users(*))"
-    );
+    )
+    .order(sort as string, { ascending: order === "asc" })
+    .limit(numberConvertedLimit);
+
+  if (search) {
+    // query = query.ilike("id", `%${search}%`);
+  }
+
+  const { data: invoices, error } = await query.range(start, end);
+
   return { invoices, error };
 }
 
