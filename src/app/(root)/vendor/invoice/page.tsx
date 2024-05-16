@@ -89,9 +89,10 @@ export default async function InvoicePage({
     );
   }
 
+  let filteredInvoices = Invoices;
   if (overdue) {
     if (overdue === "true") {
-      Invoices = Invoices.filter((invoice) => {
+      filteredInvoices = Invoices.filter((invoice) => {
         return invoice.dueDate && new Date(invoice.dueDate) < new Date();
       });
     }
@@ -107,7 +108,7 @@ export default async function InvoicePage({
           urlPathParam={VENDOR_INVOICE_PARAM}
           className="pl-8 w-[20rem]"
         />
-        <DataTable columns={columns} data={Invoices} />
+        <DataTable columns={columns} data={filteredInvoices} />
         <PaginationControl
           urlPathParam={VENDOR_ORDER_PARAM}
           totalLength={totalInvoices!}

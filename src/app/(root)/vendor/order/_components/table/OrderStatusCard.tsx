@@ -23,7 +23,7 @@ export default function OrderStatusCard({ orders }: OrderStatusCardProps) {
           <div>{firstLetterCapital(status)}</div>
           <div
             className={clsx(
-              "size-8 rounded-full flex items-center justify-center italic",
+              "size-8 rounded-full flex items-center justify-center",
               {
                 "bg-orange-50 text-orange-700": status === "PENDING",
                 "bg-green-50 text-green-700": status === "COMPLETED",

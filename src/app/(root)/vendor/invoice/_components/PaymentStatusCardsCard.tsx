@@ -19,7 +19,7 @@ export default function PaymentStatusCardsCard({
   card,
 }: PaymentStatusCardsProps) {
   return (
-    <Card className="min-w-fit w-[250px] flex-shrink-0 overflow-hidden p-3 h-[8rem] min-h-fit">
+    <Card className="min-w-fit w-[250px] flex-shrink-0 overflow-hidden p-3 h-[7.5rem] min-h-fit">
       <div className="flex items-center gap-3">
         <div
           className={clsx("rounded-full p-3 shadow-md text-4xl", {
@@ -45,7 +45,7 @@ export default function PaymentStatusCardsCard({
             <div className="text-muted-foreground">
               {card.type.charAt(0).toUpperCase() + card.type.slice(1)}
             </div>
-            <div>
+            {/* <div>
               {card.type === "total" && (
                 <p className="text-muted-foreground text-sm italic">
                   (Including receivables)
@@ -71,7 +71,7 @@ export default function PaymentStatusCardsCard({
                   <p> (The collection date has crossed)</p>
                 </div>
               )}
-            </div>
+            </div> */}
           </div>
 
           <div>

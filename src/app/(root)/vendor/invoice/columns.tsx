@@ -4,7 +4,7 @@ import firstLetterCapital from "@/lib/first-letter-capital";
 import { InvoiceWithOrderUserAndPayment } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, Slash } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import InvoiceDetailsAction from "./_components/InvoiceDetailsAction";
@@ -32,12 +32,11 @@ export const columns: ColumnDef<Invoices>[] = [
     header: "Order",
     cell: ({ row }) => {
       return (
-        <div>
-          <div>
-            #{row.original.order?.id}{" "}
-            <span className="text-muted-foreground">
-              ({firstLetterCapital(row.original.order?.status!)})
-            </span>
+        <div className="flex gap-2 items-center">
+          <div>#{row.original.order?.id} </div>
+          <Slash size={16} />
+          <div className="text-muted-foreground w-fit italic">
+            {firstLetterCapital(row.original.order?.status!)}
           </div>
         </div>
       );
