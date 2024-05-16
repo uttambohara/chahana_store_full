@@ -1,5 +1,12 @@
 import { Tables } from "./supabase";
 
+export type TProductWithCategorySubColorAndSizes =
+  | Tables<"product"> & {
+      category: Tables<"category"> | null;
+    } & { sub_category: Tables<"sub_category"> | null } & {
+      color: Tables<"color">[] | null;
+    } & { sizes: Tables<"sizes">[] | null };
+
 export type TProductSupabaseUpsert = Tables<"product">;
 
 export type TProductWithCategorySubCategoryWithColorWithSizes =

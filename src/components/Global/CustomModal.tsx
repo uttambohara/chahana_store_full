@@ -27,7 +27,6 @@ const CustomModal = ({
   const { className } = others;
   const { isOpen, setClose } = useModal();
 
-  console.log(className);
   return (
     <Dialog open={isOpen || defaultOpen} onOpenChange={setClose}>
       <DialogContent className={cn("bg-card", className)}>

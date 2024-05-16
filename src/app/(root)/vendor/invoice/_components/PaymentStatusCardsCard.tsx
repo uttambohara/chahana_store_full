@@ -19,7 +19,7 @@ export default function PaymentStatusCardsCard({
   card,
 }: PaymentStatusCardsProps) {
   return (
-    <Card className="min-w-fit w-[250px] flex-shrink-0 overflow-hidden p-2 h-[9rem]">
+    <Card className="min-w-fit w-[250px] flex-shrink-0 overflow-hidden p-3 h-[8rem] min-h-fit">
       <div className="flex items-center gap-3">
         <div
           className={clsx("rounded-full p-3 shadow-md text-4xl", {
@@ -40,7 +40,7 @@ export default function PaymentStatusCardsCard({
           {card.type === "canceled" && <Slash />}
         </div>
 
-        <div className="grid grid-rows-2">
+        <div className="grid gap-2">
           <div>
             <div className="text-muted-foreground">
               {card.type.charAt(0).toUpperCase() + card.type.slice(1)}
@@ -58,8 +58,7 @@ export default function PaymentStatusCardsCard({
               )}
               {card.type === "pending" && (
                 <div className="text-muted-foreground text-sm italic">
-                  <p> (Payments made</p>
-                  <p>but not yet received)</p>
+                  <p> (Payments incoming via 🏦)</p>
                 </div>
               )}
               {card.type === "due" && (

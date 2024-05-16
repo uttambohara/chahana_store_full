@@ -213,7 +213,9 @@ export async function getProductsWithAdvancedFiltering({
   const supabase = supabaseServerClient();
   let query = supabase
     .from("product")
-    .select("*, category(*)")
+    .select(
+      "*, color(*), sizes(*), category(*), sub_category(*)" // Nested selects with aliases
+    )
     .order(sort as string, { ascending: order === "asc" })
     .eq("user_id", userId)
     .limit(numberConvertedLimit);

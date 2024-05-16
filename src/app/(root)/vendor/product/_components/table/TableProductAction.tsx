@@ -10,21 +10,23 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useModal } from "@/providers/modal-provider";
-import { Tables } from "@/types/supabase";
-import { Row } from "@tanstack/react-table";
+import { TProductWithCategorySubColorAndSizes } from "@/types";
 import { Eye, MoreHorizontal } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import ProductCard from "../../list/_components/ProductDisplayCard";
-import { Product, VENDOR_PARAM_WITH_UPDATE } from "../../list/columns";
+import { VENDOR_PARAM_WITH_UPDATE } from "../../list/columns";
 
-export const TableProductAction = ({ row }: { row: Row<Product> }) => {
+export const TableProductAction = ({
+  rowDataWhichIsProduct,
+}: {
+  rowDataWhichIsProduct: TProductWithCategorySubColorAndSizes;
+}) => {
   const [isPending, startTranstion] = useTransition();
   const { setOpen, setClose } = useModal();
   const router = useRouter();
-  const rowDataWhichIsProduct = row.original;
 
   function handleProductDeleteFirstPhaseDisplayModal() {
     setOpen(
@@ -62,20 +64,18 @@ export const TableProductAction = ({ row }: { row: Row<Product> }) => {
     setClose();
   }
 
-  function handleShowPreviewCard(rowDataWhichIsProduct: Tables<"product">) {
-    setOpen(
-      <CustomModal title={"Product Card"}>
-        <ProductCard rowDataWhichIsProduct={rowDataWhichIsProduct} />
-      </CustomModal>
-    );
-  }
-
   return (
     <div className="flex items-center gap-2">
       <Button
         size={"sm"}
         variant={"ghost"}
-        onClick={() => handleShowPreviewCard(rowDataWhichIsProduct)}
+        onClick={() => {
+          setOpen(
+            <CustomModal title={"Product Card"} className="w-[30rem]">
+              <ProductCard rowDataWhichIsProduct={rowDataWhichIsProduct} />
+            </CustomModal>
+          );
+        }}
       >
         <Eye />
       </Button>

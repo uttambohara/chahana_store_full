@@ -50,7 +50,9 @@ export async function getAllProductsWithAdvancedFiltering({
   const supabase = supabaseServerClient();
   let query = supabase
     .from("product")
-    .select("*, category(*)")
+    .select(
+      "*,color(*), sizes(*), category(*), sub_category(*)" // Nested selects with aliases
+    )
     .order(sort as string, { ascending: order === "asc" })
     .limit(numberConvertedLimit);
 
@@ -181,6 +183,5 @@ export async function getIndividualRowFromProduct(id: number) {
 
   const { data: product, error } = await query;
 
-  console.log(product);
   return { product, error };
 }

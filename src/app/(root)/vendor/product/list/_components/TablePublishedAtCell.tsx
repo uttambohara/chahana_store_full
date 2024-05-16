@@ -1,4 +1,5 @@
 import { Tables } from "@/types/supabase";
+import { format } from "date-fns";
 import { Check } from "lucide-react";
 
 interface TablePublishedAtCellProps {
@@ -13,9 +14,8 @@ export default function TablePublishedAtCell({
   return (
     <div>
       {rowDataWhichIsProduct.created_at && (
-        <div className="font-bold inline-flex items-center gap-1 rounded-full bg-green-100 px-2.5 py-0.5 text-xs text-green-800 dark:bg-green-900 dark:text-green-200">
-          <Check size={16} />
-          Published
+        <div className="text-muted-foreground">
+          {format(rowDataWhichIsProduct.created_at, "yyyy MMM dd")}
         </div>
       )}
     </div>

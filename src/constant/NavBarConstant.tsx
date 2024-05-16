@@ -6,6 +6,7 @@ import {
   Package,
   PackageIcon,
   Settings,
+  User2,
   UsersIcon,
 } from "lucide-react";
 // import { HomeIcon, LineChartIcon, PackageIcon, UsersIcon } from "lucide-react";
@@ -44,6 +45,13 @@ export const AdminNavList = [
     item: "Settings",
     link: "/admin/settings",
     icon: <Settings />,
+    subList: [],
+  },
+  {
+    id: 6,
+    item: "Vendor",
+    link: "/vendor",
+    icon: <User2 />,
     subList: [],
   },
 ];

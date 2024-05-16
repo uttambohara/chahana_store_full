@@ -4,16 +4,14 @@ import firstLetterCapital from "@/lib/first-letter-capital";
 import { InvoiceWithOrderUserAndPayment } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
+import { ArrowUpDown } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import InvoiceDetailsAction from "./_components/InvoiceDetailsAction";
 import TableAmountCell from "./_components/TableAmountCell";
 import TableCustomerCell from "./_components/TableCustomerCell";
 import TableDueCell from "./_components/TableDueCell";
 import TablePaidCell from "./_components/TablePaidCell";
-import { AlertTriangle, ArrowUp, ArrowUpDown } from "lucide-react";
-import { Alert } from "@/components/ui/alert";
-import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
 
 export const VENDOR_INVOICE_PARAM = "/vendor/invoice"; // Manual
 
@@ -37,7 +35,7 @@ export const columns: ColumnDef<Invoices>[] = [
         <div>
           <div>
             #{row.original.order?.id}{" "}
-            <span className="text-muted-foreground italic">
+            <span className="text-muted-foreground">
               ({firstLetterCapital(row.original.order?.status!)})
             </span>
           </div>
