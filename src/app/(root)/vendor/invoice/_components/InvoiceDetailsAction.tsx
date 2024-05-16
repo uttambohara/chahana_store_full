@@ -59,7 +59,7 @@ export default function InvoiceDetailsAction({
               <h1 className="text-3xl mb-8">
                 Invoice #{rowDataWhichIsInvoice.id}
               </h1>
-              <div className="flex justify-between text-sm text-muted-foreground px-6">
+              <div className="flex justify-between text-sm text-muted-foreground">
                 <div className="flex items-center gap-12">
                   <div className="space-y-1">
                     <div className="font-bold text-black">From</div>
@@ -107,15 +107,12 @@ export default function InvoiceDetailsAction({
                   </p>
                 </div>
               </div>
-              <div className="p-6 text-sm">
+              <div className="py-6 text-sm">
                 <div className="overflow-x-auto">
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="w-[80px] hidden md:table-cell">
-                          Image
-                        </TableHead>
-                        <TableHead className="max-w-[150px]">Name</TableHead>
+                        <TableHead>Name</TableHead>
                         <TableHead>Quantity</TableHead>
                         <TableHead>Per unit</TableHead>
                         <TableHead>Total</TableHead>
@@ -139,7 +136,7 @@ export default function InvoiceDetailsAction({
                                 100);
                           return (
                             <TableRow key={order_product_item.product_id}>
-                              <TableCell>
+                              <TableCell className="font-medium flex items-center gap-4">
                                 <div className="relative h-12 w-12">
                                   <Image
                                     src={imageUrl}
@@ -151,8 +148,6 @@ export default function InvoiceDetailsAction({
                                     className="rounded-full object-cover"
                                   />
                                 </div>
-                              </TableCell>
-                              <TableCell className="font-medium">
                                 {order_product_item.product?.name}
                               </TableCell>
                               <TableCell>
