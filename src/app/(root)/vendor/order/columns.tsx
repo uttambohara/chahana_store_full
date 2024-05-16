@@ -8,11 +8,10 @@ import ChangeOrderStatusAction from "./_components/table/ChangeOrderStatusAction
 import TableCustomerCell from "./_components/table/TableCustomerCell";
 import TableOrderDateCell from "./_components/table/TableOrderDateCell";
 
+import TableOrderPreview from "./_components/table/TableOrderPreview";
 import TableQuantityCell from "./_components/table/TableQuantityCell";
 import TableRevenueCell from "./_components/table/TableRevenueCell";
 import TableStatusCell from "./_components/table/TableStatusCell";
-import TableOrderPreview from "./_components/table/TableOrderPreview";
-import TablePaymentMethodCell from "./_components/table/TablePaymentMethodCell";
 
 export const VENDOR_ORDER_PARAM = "/vendor/order"; // Manual
 

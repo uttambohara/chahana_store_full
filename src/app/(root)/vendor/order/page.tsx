@@ -12,6 +12,7 @@ import {
 } from "@/utils/query/supabase-database";
 import { notFound, redirect } from "next/navigation";
 import { VENDOR_ORDER_PARAM, columns } from "./columns";
+import OrderStatusCard from "./_components/table/OrderStatusCard";
 
 export default async function OrderList({
   searchParams,
@@ -22,7 +23,7 @@ export default async function OrderList({
   if (!user?.id) redirect("/auth/login");
   const userId = user.id;
 
-  const search = searchParams["search"];
+  const search = searchParams["search"] as string;
   const page = searchParams["page"] ?? 1;
   const limit = searchParams["limit"] ?? PER_PAGE;
   const sort = searchParams["sort"] ?? "id"; // Different from product list
@@ -38,7 +39,6 @@ export default async function OrderList({
     order,
     userId,
     limit,
-    search,
     start,
     end,
     status,
@@ -55,7 +55,6 @@ export default async function OrderList({
         sort,
         order,
         limit,
-        search,
         start,
         end,
         status,
@@ -73,10 +72,27 @@ export default async function OrderList({
   if (error) throw new Error(JSON.stringify(error));
   const totalOrders = TotalOrders?.length;
 
+  // Application logic to filter order from the customer/ child object
+  if (search) {
+    Orders = Orders.filter(
+      (order) =>
+        order.customer?.users?.first_name
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        order.customer?.users?.last_name
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        order.customer?.users?.email
+          .toLowerCase()
+          .includes(search.toLowerCase())
+    );
+  }
+
   return (
     <Container screen="lg">
       <div className="space-y-6">
         <SectionHeading title="Manage orders" description={""} />
+        <OrderStatusCard orders={Orders} />
         <PaginationInput
           filterBy="name"
           urlPathParam={VENDOR_ORDER_PARAM}

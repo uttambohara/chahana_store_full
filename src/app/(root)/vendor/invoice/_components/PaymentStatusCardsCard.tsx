@@ -19,7 +19,7 @@ export default function PaymentStatusCardsCard({
   card,
 }: PaymentStatusCardsProps) {
   return (
-    <Card className="min-w-fit w-[250px] flex-shrink-0 overflow-hidden p-2">
+    <Card className="min-w-fit w-[250px] flex-shrink-0 overflow-hidden p-2 h-[9rem]">
       <div className="flex items-center gap-3">
         <div
           className={clsx("rounded-full p-3 shadow-md text-4xl", {
@@ -53,7 +53,7 @@ export default function PaymentStatusCardsCard({
               )}
               {card.type === "paid" && (
                 <p className="text-muted-foreground text-sm italic">
-                  (Payments recevied)
+                  (Payments received)
                 </p>
               )}
               {card.type === "pending" && (
@@ -65,6 +65,11 @@ export default function PaymentStatusCardsCard({
               {card.type === "due" && (
                 <div className="text-muted-foreground text-sm italic">
                   <p> (Less of pending payments)</p>
+                </div>
+              )}
+              {card.type === "overdue" && (
+                <div className="text-muted-foreground text-sm italic">
+                  <p> (The collection date has crossed)</p>
                 </div>
               )}
             </div>

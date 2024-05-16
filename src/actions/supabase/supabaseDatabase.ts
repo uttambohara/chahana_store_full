@@ -230,7 +230,6 @@ interface GetOrdersWithAdvancedFilteringProps {
   order: string | string[];
   userId: string;
   limit: string | number | string[];
-  search: string | string[] | undefined;
   start: number;
   end: number;
   status: string | string[];
@@ -241,7 +240,6 @@ export async function getOrdersWithAdvancedFiltering({
   order,
   userId,
   limit,
-  search,
   start,
   end,
   status,
@@ -257,10 +255,6 @@ export async function getOrdersWithAdvancedFiltering({
     .eq("vendor_id", userId)
     .limit(numberConvertedLimit);
 
-  if (search) {
-    query = query.ilike("name", `%${search}%`);
-  }
-
   const { data: orders, error } = await query.range(start, end);
 
   return { orders, error };
@@ -271,7 +265,6 @@ interface GetInvoicesWithAdvancedFilteringProps {
   order: string | string[];
   userId: string;
   limit: string | number | string[];
-  search: string | string[] | undefined;
   start: number;
   end: number;
   status: string | string[];
@@ -282,7 +275,6 @@ export async function getInvoicesWithAdvancedFiltering({
   order,
   userId,
   limit,
-  search,
   start,
   end,
   status,
@@ -297,10 +289,6 @@ export async function getInvoicesWithAdvancedFiltering({
     .order(sort as string, { ascending: order === "asc" })
     .eq("vendor_id", userId)
     .limit(numberConvertedLimit);
-
-  if (search) {
-    // query = query.ilike("id", `%${search}%`);
-  }
 
   const { data: invoices, error } = await query.range(start, end);
 

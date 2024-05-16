@@ -10,14 +10,14 @@ const statusColors = {
   PENDING: "orange",
   COMPLETED: "green",
   CANCELED: "red",
-  REJECTED: "red",
+  REFUNDED: "red",
 };
 
 const statusIcons = {
   PENDING: Clock,
   COMPLETED: Check,
   CANCELED: X,
-  REJECTED: Slash,
+  REFUNDED: Slash,
 };
 
 export default function TableStatusCell({

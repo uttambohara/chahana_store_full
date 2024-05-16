@@ -517,7 +517,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      order_status: "PENDING" | "REJECTED" | "CANCELED" | "COMPLETED"
+      order_status: "PENDING" | "REFUNDED" | "CANCELED" | "COMPLETED"
       payment_method:
         | "CASH"
         | "CARD"

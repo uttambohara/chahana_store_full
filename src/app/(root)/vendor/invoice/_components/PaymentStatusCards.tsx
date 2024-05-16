@@ -14,6 +14,7 @@ export default function PaymentStatusCards({
 }: PaymentStatusCardsProps) {
   // ...
   const totalAmount = invoices.reduce((acc, invoice) => {
+    if (invoice.order?.status === "REFUNDED") return acc;
     const order_product = invoice.order?.order_product;
     const revenueTotal = calculateRevenueTotal(order_product!);
     const { totalAmount } = calculateSummary(revenueTotal);
@@ -22,10 +23,9 @@ export default function PaymentStatusCards({
 
   // ...
   const totalPaid = invoices.reduce((acc, invoice) => {
+    if (invoice.order?.status === "REFUNDED") return acc;
     // paid accumulated
     const accPaid = invoice.payment.reduce((acc, payment) => {
-      if (payment.status === "PENDING" || payment.status === "CANCELED")
-        return acc;
       return acc + payment.amount;
     }, 0);
     return acc + accPaid;
@@ -36,9 +36,10 @@ export default function PaymentStatusCards({
 
   // ...
   const totalDueAmount = invoices.reduce((acc, invoice) => {
+    if (invoice.order?.status === "REFUNDED") return acc;
+
     // paid accumulated
     const accPaid = invoice.payment.reduce((acc, payment) => {
-      if (payment.status === "CANCELED") return acc;
       return acc + payment.amount;
     }, 0);
     const order_product = invoice.order?.order_product;
@@ -78,17 +79,36 @@ export default function PaymentStatusCards({
   }).length;
 
   //
+  const overDueInvoices = invoices.filter(
+    (invoice) => invoice.dueDate && new Date(invoice.dueDate) < new Date()
+  );
+  const totalOverDueAmount = overDueInvoices.reduce((acc, invoice) => {
+    // paid accumulated
+    const accPaid = invoice.payment.reduce((acc, payment) => {
+      return acc + payment.amount;
+    }, 0);
+    const order_product = invoice.order?.order_product;
+    const revenueTotal = calculateRevenueTotal(order_product!);
+    const { totalAmount } = calculateSummary(revenueTotal);
+    const totalDue = totalAmount - accPaid;
+    return acc + totalDue;
+  }, 0);
 
   const showCards = [
     { type: "total", total: totalAmount, length: invoices.length }, // total
     { type: "paid", total: totalPaid, length: totalPaidCount },
     { type: "pending", total: totalPendingAmount, length: totalPendingCount },
     { type: "due", total: totalDueAmount, length: totalDueCount },
+    {
+      type: "overdue",
+      total: totalOverDueAmount,
+      length: overDueInvoices.length,
+    },
   ];
 
   return (
     <section className="w-full">
-      <div className="flex gap-6 overflow-x-auto p-4 md:px-0">
+      <div className="flex gap-4 overflow-x-auto p-4 md:px-0">
         {showCards.map((card, i) => (
           <PaymentStatusCardsCard card={card} key={i} />
         ))}

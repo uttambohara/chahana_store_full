@@ -10,3 +10,5 @@ export const INVOICE_STATUS = [
   "overpaid",
   "canceled",
 ] as const;
+
+export const ORDER_STATUS = ["PENDING", "COMPLETED", "CANCELED", "REFUNDED"];

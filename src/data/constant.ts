@@ -4,7 +4,7 @@ export const userRole: UserRole[] = ["CUSTOMER", "VENDOR"];
 export const ORDER_STATUS = [
   "ALL",
   "PENDING",
-  "REJECTED",
+  "REFUNDED",
   "CANCELED",
   "COMPLETED",
 ] as const;

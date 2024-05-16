@@ -65,7 +65,6 @@ interface GetAllOrdersWithAdvancedFilteringProps {
   sort: string | string[];
   order: string | string[];
   limit: string | number | string[];
-  search: string | string[] | undefined;
   start: number;
   end: number;
   status: string | string[];
@@ -74,7 +73,6 @@ export async function getAllOrdersWithAdvancedFiltering({
   sort,
   order,
   limit,
-  search,
   start,
   end,
   status,
@@ -89,9 +87,6 @@ export async function getAllOrdersWithAdvancedFiltering({
     .order(sort as string, { ascending: order === "asc" })
     .limit(numberConvertedLimit);
 
-  if (search) {
-    query = query.ilike("name", `%${search}%`);
-  }
   const { data: orders, error } = await query.range(start, end);
   return { orders, error };
 }
@@ -100,7 +95,6 @@ interface GetAllInvoicesWithAdvancedFilteringProps {
   sort: string | string[];
   order: string | string[];
   limit: string | number | string[];
-  search: string | string[] | undefined;
   start: number;
   end: number;
   status: string | string[];
@@ -110,7 +104,6 @@ export async function getAllInvoicesWithAdvancedFiltering({
   sort,
   order,
   limit,
-  search,
   start,
   end,
   status,
@@ -124,10 +117,6 @@ export async function getAllInvoicesWithAdvancedFiltering({
     )
     .order(sort as string, { ascending: order === "asc" })
     .limit(numberConvertedLimit);
-
-  if (search) {
-    // query = query.ilike("id", `%${search}%`);
-  }
 
   const { data: invoices, error } = await query.range(start, end);
 

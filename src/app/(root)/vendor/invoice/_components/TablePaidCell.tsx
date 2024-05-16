@@ -13,10 +13,7 @@ export default function TablePaidCell({
     <div>
       {formatCurrencyToNPR(
         rowDataWhichIsInvoice.payment.reduce((sum, payment) => {
-          if (payment?.status !== "CANCELED") {
-            return sum + payment?.amount!;
-          }
-          return sum;
+          return sum + payment.amount;
         }, 0)
       )}
     </div>

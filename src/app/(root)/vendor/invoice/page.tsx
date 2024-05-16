@@ -24,7 +24,8 @@ export default async function InvoicePage({
   if (!user?.id) redirect("/auth/login");
   const userId = user.id;
 
-  const search = searchParams["search"];
+  const overdue = searchParams["overdue"] as string;
+  const search = searchParams["search"] as string;
   const page = searchParams["page"] ?? 1;
   const limit = searchParams["limit"] ?? PER_PAGE;
   const sort = searchParams["sort"] ?? "id"; // Different from list
@@ -40,7 +41,6 @@ export default async function InvoicePage({
     order,
     userId,
     limit,
-    search,
     start,
     end,
     status,
@@ -57,7 +57,6 @@ export default async function InvoicePage({
         sort,
         order,
         limit,
-        search,
         start,
         end,
         status,
@@ -76,6 +75,27 @@ export default async function InvoicePage({
   const totalInvoices = TotalInvoices?.length;
 
   if (!Invoices) return <div>No invoice can be found!</div>;
+
+  // Application logic to filter order from the customer/ child object
+  if (search) {
+    Invoices = Invoices.filter(
+      (invoice) =>
+        invoice.customer?.users?.first_name
+          .toLowerCase()
+          .includes(search.toLowerCase()) ||
+        invoice.customer?.users?.last_name
+          .toLowerCase()
+          .includes(search.toLowerCase())
+    );
+  }
+
+  if (overdue) {
+    if (overdue === "true") {
+      Invoices = Invoices.filter((invoice) => {
+        return invoice.dueDate && new Date(invoice.dueDate) < new Date();
+      });
+    }
+  }
 
   return (
     <Container screen="xl">
