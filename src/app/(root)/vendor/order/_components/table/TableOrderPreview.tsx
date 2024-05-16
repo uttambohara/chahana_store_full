@@ -173,9 +173,9 @@ export default function TableOrderPreview({
                         </Table>
                       </CardContent>
                     </Card>
-                    <Card className="text-sm">
+                    <Card className="text-sm border-none">
                       <CardHeader>
-                        <CardTitle>Payment history</CardTitle>
+                        <CardTitle>Bill</CardTitle>
                       </CardHeader>
                       <CardContent className="grid gap-4 text-muted-foreground">
                         <div className="flex items-center justify-between">
@@ -202,7 +202,7 @@ export default function TableOrderPreview({
                           </div>
                         </div>
                         <div className="flex items-center font-medium">
-                          <div>Total paid</div>
+                          <div>Paid</div>
                           <div className="ml-auto">
                             {formatCurrencyToNPR(Number(totalPaid))}
                           </div>
@@ -262,9 +262,7 @@ export default function TableOrderPreview({
                       </div>
                       <Separator />
                       <CardHeader>
-                        <CardTitle>
-                          All payments on this order (already made)
-                        </CardTitle>
+                        <CardTitle>Payment history</CardTitle>
                       </CardHeader>
                       <CardContent className="text-sm">
                         <TablePaymentStatus

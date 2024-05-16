@@ -13,6 +13,7 @@ import {
 import { notFound, redirect } from "next/navigation";
 import { VENDOR_ORDER_PARAM } from "../order/columns";
 import { VENDOR_INVOICE_PARAM, columns } from "./columns";
+import PaymentStatusCards from "./_components/PaymentStatusCards";
 
 export default async function InvoicePage({
   searchParams,
@@ -77,9 +78,10 @@ export default async function InvoicePage({
   if (!Invoices) return <div>No invoice can be found!</div>;
 
   return (
-    <Container screen="lg">
+    <Container screen="xl">
       <div className="space-y-6">
         <SectionHeading title="Manage invoices" description={""} />
+        <PaymentStatusCards invoices={Invoices} />
         <PaginationInput
           filterBy="name"
           urlPathParam={VENDOR_INVOICE_PARAM}

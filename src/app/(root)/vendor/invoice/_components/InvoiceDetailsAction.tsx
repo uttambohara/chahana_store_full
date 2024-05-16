@@ -58,9 +58,14 @@ export default function InvoiceDetailsAction({
             <div className="bg-white dark:bg-gray-950 overflow-hidden rounded-md p-2">
               <h1 className="text-3xl mb-8">
                 Invoice #{rowDataWhichIsInvoice.id}
+                <p className="text-xl">
+                  Due date:{" "}
+                  {format(rowDataWhichIsInvoice.dueDate!, "yyyy MMM dd")}
+                </p>
               </h1>
+
               <div className="flex justify-between text-sm text-muted-foreground">
-                <div className="flex items-center gap-12">
+                <div className="flex items-center gap-16">
                   <div className="space-y-1">
                     <div className="font-bold text-black">From</div>
                     <div>
@@ -68,14 +73,8 @@ export default function InvoiceDetailsAction({
                       {rowDataWhichIsInvoice.users?.last_name}
                     </div>
                     <div>{rowDataWhichIsInvoice.users?.address}</div>
-                    <div>
-                      <strong>Email:</strong>{" "}
-                      {rowDataWhichIsInvoice.users?.address}
-                    </div>
-                    <div>
-                      <strong>Phone:</strong>{" "}
-                      {rowDataWhichIsInvoice.users?.phone}
-                    </div>
+                    <div>{rowDataWhichIsInvoice.users?.email}</div>
+                    <div>{rowDataWhichIsInvoice.users?.phone}</div>
                   </div>
                   <div className="space-y-1">
                     <div className="font-bold text-black">To</div>
@@ -84,17 +83,11 @@ export default function InvoiceDetailsAction({
                       {rowDataWhichIsInvoice.customer?.users?.last_name}
                     </div>
                     <div>{rowDataWhichIsInvoice.customer?.users?.address}</div>
-                    <div>
-                      <strong>Email:</strong>{" "}
-                      {rowDataWhichIsInvoice.customer?.users?.address}
-                    </div>
-                    <div>
-                      <strong>Phone:</strong>{" "}
-                      {rowDataWhichIsInvoice.customer?.users?.phone}
-                    </div>
+                    <div>{rowDataWhichIsInvoice.customer?.users?.email}</div>
+                    <div>{rowDataWhichIsInvoice.customer?.users?.phone}</div>
                   </div>
                 </div>
-                <div className="space-y-1 bg-zinc-50 p-4 shadow-md">
+                {/* <div className="space-y-1 bg-zinc-50 p-4 shadow-md">
                   <div className="font-bold text-black">Details</div>
                   <div>Invoice: #{rowDataWhichIsInvoice.id}</div>
                   <p>
@@ -105,7 +98,7 @@ export default function InvoiceDetailsAction({
                     Due date:{" "}
                     {format(rowDataWhichIsInvoice.dueDate!, "yyyy MMM dd")}
                   </p>
-                </div>
+                </div> */}
               </div>
               <div className="py-6 text-sm">
                 <div className="overflow-x-auto">
@@ -193,7 +186,7 @@ export default function InvoiceDetailsAction({
                         </div>
                       </div>
                       <div className="flex items-center font-medium">
-                        <div>Total paid</div>
+                        <div>Paid</div>
                         <div className="ml-auto">
                           <div className="flex flex-col p-4">
                             {paymentMethod.map((payment) => {

@@ -14,6 +14,8 @@ export default async function UpdateProductPage({
   const { product: productBasedOnParamId, error } =
     await getIndividualRowFromProduct(Number(id));
 
+  console.log(productBasedOnParamId);
+
   return (
     <Container screen={"lg"}>
       <div className="grid gap-6 py-12">

@@ -524,7 +524,7 @@ export type Database = {
         | "ESEWA"
         | "CONNECT_IPS"
         | "CASH ON DELIVERY"
-      payment_status: "PAID" | "CANCELED"
+      payment_status: "PAID" | "CANCELED" | "PENDING"
       user_role: "ADMIN" | "VENDOR" | "CUSTOMER"
     }
     CompositeTypes: {

@@ -178,13 +178,20 @@ export async function getIndividualRowFromProduct(id: number) {
   const supabase = supabaseServerClient();
   const { data: user } = await getUser();
   if (!user) return { error: "No user found!" };
-  let { data: product, error } = await supabase
+
+  let query = supabase
     .from("product")
     .select(
       "*, color(*), sizes(*), category(*), sub_category(*)" // Nested selects with aliases
     )
-    .eq("id", id)
-    .eq("user_id", user.id);
+    .eq("id", id);
 
+  if (user.role !== "ADMIN") {
+    query = query.eq("user_id", user.id);
+  }
+
+  const { data: product, error } = await query;
+
+  console.log(product);
   return { product, error };
 }

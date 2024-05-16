@@ -14,7 +14,7 @@ export default function Container({
   return (
     <div
       className={clsx("mx-auto", {
-        "max-w-screen-xl": screen === "xl",
+        "max-w-[1150px]": screen === "xl",
         "max-w-screen-lg": screen === "lg",
         "max-w-screen-md": screen === "md",
         "max-w-screen-sm": screen === "sm",

@@ -4,7 +4,6 @@ import SidebarHead from "@/components/Layout/SidebarHead";
 import { VendorNavList } from "@/constant/NavBarConstant";
 import getUser from "@/utils/query/get-user";
 import { redirect } from "next/navigation";
-import React from "react";
 
 export default async function VendorLayout({
   children,

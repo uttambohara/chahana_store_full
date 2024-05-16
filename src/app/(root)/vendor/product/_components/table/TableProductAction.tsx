@@ -95,7 +95,6 @@ export const TableProductAction = ({ row }: { row: Row<Product> }) => {
           <Link
             href={`${VENDOR_PARAM_WITH_UPDATE}/${rowDataWhichIsProduct.id}`}
           >
-            {" "}
             <DropdownMenuItem>Update</DropdownMenuItem>
           </Link>
         </DropdownMenuContent>

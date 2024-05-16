@@ -1,5 +1,6 @@
 "use client";
 import { DataTableColumnHeader } from "@/components/Table/data-table-column-header";
+import firstLetterCapital from "@/lib/first-letter-capital";
 import { InvoiceWithOrderUserAndPayment } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
@@ -22,6 +23,22 @@ export const columns: ColumnDef<Invoices>[] = [
     header: "Status",
     cell: ({ row }) => {
       return <TableCustomerCell rowDataWhichIsInvoice={row.original} />;
+    },
+  },
+  {
+    accessorKey: "order",
+    header: "Order",
+    cell: ({ row }) => {
+      return (
+        <div>
+          <div>
+            #{row.original.order?.id}{" "}
+            <span className="text-muted-foreground italic">
+              ({firstLetterCapital(row.original.order?.status!)})
+            </span>
+          </div>
+        </div>
+      );
     },
   },
 

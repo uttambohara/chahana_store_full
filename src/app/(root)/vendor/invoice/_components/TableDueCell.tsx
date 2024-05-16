@@ -27,8 +27,6 @@ export default function TableDueCell({
     0
   );
 
-  console.log(rowDataWhichIsInvoice);
-
   return (
     <div> {formatCurrencyToNPR(Number(totalAmount) - Number(totalPaid))}</div>
   );
