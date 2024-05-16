@@ -232,7 +232,7 @@ export default function TableOrderPreview({
                     </Card>
                   </div>
                   <div className="md:col-span-2 lg:col-span-3 xl:col-span-2 flex flex-col gap-6">
-                    <Card>
+                    <Card className="border-none">
                       <div>
                         <CardHeader className="flex flex-row items-center space-y-0">
                           <CardTitle>Customer</CardTitle>
@@ -261,7 +261,6 @@ export default function TableOrderPreview({
                         </CardContent>
                       </div>
                       <Separator />
-
                       <CardHeader>
                         <CardTitle>
                           All payments on this order (already made)
@@ -272,7 +271,6 @@ export default function TableOrderPreview({
                           rowDataWhichIsOrder={rowDataWhichIsOrder}
                         />
                       </CardContent>
-                      <Separator />
                     </Card>
                   </div>
                 </div>

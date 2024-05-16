@@ -94,9 +94,9 @@ export default function InvoiceDetailsAction({
                     </div>
                   </div>
                 </div>
-                <div className="space-y-1 bg-zinc-100 p-4 shadow-md">
+                <div className="space-y-1 bg-zinc-50 p-4 shadow-md">
                   <div className="font-bold text-black">Details</div>
-                  <div>Invoice ID: #{rowDataWhichIsInvoice.id}</div>
+                  <div>Invoice: #{rowDataWhichIsInvoice.id}</div>
                   <p>
                     Created At:{" "}
                     {format(rowDataWhichIsInvoice.created_at, "yyyy MMM dd")}
