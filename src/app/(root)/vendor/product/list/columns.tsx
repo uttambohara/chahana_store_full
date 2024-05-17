@@ -2,13 +2,11 @@
 
 import { DataTableColumnHeader } from "@/components/Table/data-table-column-header";
 import { formatCurrencyToNPR } from "@/lib/format-currency";
-import { Tables } from "@/types/supabase";
+import { TProductWithCategorySubColorAndSizes } from "@/types";
 import { ColumnDef } from "@tanstack/react-table";
 import TableNameColumn from "../_components/table/TableNameColumn";
 import { TableProductAction } from "../_components/table/TableProductAction";
-import ProductCellUser from "./_components/ProductCellUser";
 import TablePublishedAtCell from "./_components/TablePublishedAtCell";
-import { TProductWithCategorySubColorAndSizes } from "@/types";
 
 const PARAM = "/vendor/product";
 export const VENDOR_PARAM_WITH_LIST = "/vendor/product/list"; // Manual
@@ -61,11 +59,6 @@ export const columns: ColumnDef<Product>[] = [
     cell: ({ row }) => {
       return <TablePublishedAtCell rowDataWhichIsProduct={row.original} />;
     },
-  },
-  {
-    id: "published_by",
-    header: "Published by",
-    cell: ({ row }) => <ProductCellUser rowDataWhichIsProduct={row.original} />,
   },
   {
     id: "actions",
