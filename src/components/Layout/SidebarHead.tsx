@@ -10,10 +10,6 @@ export default function SidebarHead() {
         <MountainIcon className="h-6 w-6" />
         <span className="sr-only">Acme Inc</span>
       </Link>
-      <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
-        <BellIcon className="h-4 w-4" />
-        <span className="sr-only">Toggle notifications</span>
-      </Button>
     </div>
   );
 }

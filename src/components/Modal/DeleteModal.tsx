@@ -25,15 +25,11 @@ export default function DeleteModal({ deleteFn, isPending }: DeleteModalProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          className="text-red-500 hover:text-red-600"
-          size="icon"
-          variant="outline"
-        >
+        <div className="text-red-500 hover:text-red-600 cursor-pointer hover:bg-slate-100 p-2 rounded-md bg-white">
           {isPending && <LoaderEl />}
           {!isPending && <TrashIcon size={16} />}
           <span className="sr-only">Delete</span>
-        </Button>
+        </div>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

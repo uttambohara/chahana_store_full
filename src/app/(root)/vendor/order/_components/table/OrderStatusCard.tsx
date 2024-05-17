@@ -16,7 +16,7 @@ export default function OrderStatusCard({ orders }: OrderStatusCardProps) {
   const allStatus = { pending, completed, canceled, refunded };
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 text-muted-foreground text-sm">
       {ORDER_STATUS.map((status, index) => (
         <div key={status} className="flex items-center gap-2">
           <div>{firstLetterCapital(status)}</div>

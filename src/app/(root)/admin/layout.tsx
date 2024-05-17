@@ -23,19 +23,19 @@ export default async function AdminLayout({
   }
 
   return (
-    <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr] overflow-auto">
+    <div className="grid lg:grid-cols-[280px_1fr] h-screen">
       {/*  */}
-      <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
+      <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40 h-full">
         <div className="flex h-full max-h-screen flex-col gap-2">
           <SidebarHead />
           <SidebarContent NavList={AdminNavList} />
         </div>
       </div>
 
-      <div className="flex flex-col">
+      <div>
         <Header />
-        <main className="flex-1 flex flex-col">
-          <div className="flex-1 overflow-auto px-4 py-8">{children}</div>
+        <main className="h-[calc(100svh-4rem)] overflow-scroll">
+          <div className="px-4 py-8">{children}</div>
         </main>
       </div>
     </div>

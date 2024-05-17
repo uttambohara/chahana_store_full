@@ -47,13 +47,6 @@ export const AdminNavList = [
     icon: <Settings />,
     subList: [],
   },
-  {
-    id: 6,
-    item: "Vendor",
-    link: "/vendor",
-    icon: <User2 />,
-    subList: [],
-  },
 ];
 
 export const VendorNavList = [
@@ -67,7 +60,7 @@ export const VendorNavList = [
   {
     id: 2,
     item: "Product",
-    link: "/vendor/product",
+    link: "/vendor/product/list",
     icon: <Package />,
     subList: [
       {

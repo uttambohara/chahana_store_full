@@ -45,13 +45,13 @@ export default function UserTableChangeRoleSelect({
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         {isPending ? (
-          <Button size="icon" variant="outline">
+          <Button size="sm" variant="ghost">
             <LoaderEl />
           </Button>
         ) : (
-          <Button size="icon" variant="outline">
-            <ChevronDown />
-          </Button>
+          <div className="cursor-pointer hover:bg-slate-100 p-2 text-black rounded-md">
+            <ChevronDown size={16} />
+          </div>
         )}
       </DropdownMenuTrigger>
       <DropdownMenuContent>

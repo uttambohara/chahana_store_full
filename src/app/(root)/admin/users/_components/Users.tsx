@@ -1,4 +1,3 @@
-import SectionHeading from "@/components/Global/SectionHeading";
 import UserTable from "./UserTable";
 
 export default function Users() {
