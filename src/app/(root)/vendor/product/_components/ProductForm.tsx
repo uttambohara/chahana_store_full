@@ -69,9 +69,7 @@ const formSchema = z.object({
   salesPrice: coerce.number().positive({
     message: "Price must be greater than 0",
   }),
-  discount: coerce.number().positive({
-    message: "Discount must be greater than 0",
-  }),
+  discount: coerce.number(),
   quantity: coerce
     .number()
     .positive({

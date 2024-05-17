@@ -1,4 +1,6 @@
+import firstLetterCapital from "@/lib/first-letter-capital";
 import { InvoiceWithOrderUserAndPayment } from "@/types";
+import clsx from "clsx";
 import Image from "next/image";
 
 interface TableCustomerCellProps {
@@ -28,6 +30,16 @@ export default function TableCustomerCell({
           <div className="text-muted-foreground">
             INV-
             {rowDataWhichIsInvoice.id}
+          </div>
+          <div>
+            {rowDataWhichIsInvoice.payment.map((payment) => (
+              <div
+                key={payment.id}
+                className={clsx("text-muted-foreground italic")}
+              >
+                {firstLetterCapital(payment.status)}
+              </div>
+            ))}
           </div>
         </div>
       </div>

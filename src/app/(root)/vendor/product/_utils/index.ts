@@ -6,7 +6,6 @@ export function validateProductData(data: any) {
     "name",
     "description",
     "sku",
-    "discount",
     "salesPrice",
     "category_id",
     "sub_category_id",

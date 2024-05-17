@@ -79,7 +79,7 @@ export default function PaymentStatusCardsCard({
               {formatCurrencyToNPR(card.total)}
             </div>
             <div className="text-sm text-muted-foreground">
-              /from {card.length} {card.length > 1 ? "invoices" : "invoice"}
+              from {card.length} {card.length > 1 ? "invoices" : "invoice"}
             </div>
           </div>
         </div>

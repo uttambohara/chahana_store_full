@@ -14,7 +14,12 @@ export default function PaymentStatusCards({
 }: PaymentStatusCardsProps) {
   // ...
   const totalAmount = invoices.reduce((acc, invoice) => {
-    if (invoice.order?.status === "REFUNDED") return acc;
+    if (
+      invoice.order?.status === "REFUNDED" ||
+      invoice.order?.status === "CANCELED"
+    )
+      return acc;
+
     const order_product = invoice.order?.order_product;
     const revenueTotal = calculateRevenueTotal(order_product!);
     const { totalAmount } = calculateSummary(revenueTotal);
@@ -23,20 +28,50 @@ export default function PaymentStatusCards({
 
   // ...
   const totalPaid = invoices.reduce((acc, invoice) => {
-    if (invoice.order?.status === "REFUNDED") return acc;
+    // Payment canceled
+    const canceledPaymentFromBank = invoice.payment.filter(
+      (payment) => payment.status === "CANCELED"
+    );
+    const totalCanceledAmount = canceledPaymentFromBank.reduce(
+      (acc, payment) => acc + payment.amount,
+      0
+    );
+
+    if (
+      invoice.order?.status === "REFUNDED" ||
+      invoice.order?.status === "CANCELED"
+    )
+      return acc;
     // paid accumulated
     const accPaid = invoice.payment.reduce((acc, payment) => {
+      if (payment.status === "PENDING") {
+        return acc;
+      }
       return acc + payment.amount;
     }, 0);
-    return acc + accPaid;
+    return acc + accPaid - totalCanceledAmount;
   }, 0);
+
   const totalPaidCount = invoices.filter(
     (invoice) => invoice.payment.length > 0
   ).length;
 
   // ...
   const totalDueAmount = invoices.reduce((acc, invoice) => {
-    if (invoice.order?.status === "REFUNDED") return acc;
+    if (
+      invoice.order?.status === "REFUNDED" ||
+      invoice.order?.status === "CANCELED"
+    )
+      return acc;
+
+    // Payment canceled
+    const canceledPaymentFromBank = invoice.payment.filter(
+      (payment) => payment.status === "CANCELED"
+    );
+    const totalCanceledAmount = canceledPaymentFromBank.reduce(
+      (acc, payment) => acc + payment.amount,
+      0
+    );
 
     // paid accumulated
     const accPaid = invoice.payment.reduce((acc, payment) => {
@@ -45,7 +80,7 @@ export default function PaymentStatusCards({
     const order_product = invoice.order?.order_product;
     const revenueTotal = calculateRevenueTotal(order_product!);
     const { totalAmount } = calculateSummary(revenueTotal);
-    const totalDue = totalAmount - accPaid;
+    const totalDue = totalAmount - accPaid + totalCanceledAmount;
     return acc + totalDue;
   }, 0);
   const totalDueCount = invoices.filter((invoice) => {

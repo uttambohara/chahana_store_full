@@ -9,13 +9,23 @@ interface TablePaidCellInterface {
 export default function TablePaidCell({
   rowDataWhichIsInvoice,
 }: TablePaidCellInterface) {
+  const totalPaidAmount = rowDataWhichIsInvoice.payment.reduce(
+    (sum, payment) => {
+      return sum + payment.amount;
+    },
+    0
+  );
+
+  // Payment canceled
+  const canceledPaymentFromBank = rowDataWhichIsInvoice.payment.filter(
+    (payment) => payment.status === "CANCELED"
+  );
+  const totalCanceledAmount = canceledPaymentFromBank.reduce(
+    (acc, payment) => acc + payment.amount,
+    0
+  );
+
   return (
-    <div>
-      {formatCurrencyToNPR(
-        rowDataWhichIsInvoice.payment.reduce((sum, payment) => {
-          return sum + payment.amount;
-        }, 0)
-      )}
-    </div>
+    <div>{formatCurrencyToNPR(totalPaidAmount - totalCanceledAmount)}</div>
   );
 }

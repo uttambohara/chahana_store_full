@@ -2,7 +2,6 @@ import { ORDER_STATUS } from "@/constant";
 import firstLetterCapital from "@/lib/first-letter-capital";
 import { OrderWithCustomer } from "@/types";
 import clsx from "clsx";
-import { Slash } from "lucide-react";
 
 interface OrderStatusCardProps {
   orders: OrderWithCustomer[];
@@ -17,7 +16,7 @@ export default function OrderStatusCard({ orders }: OrderStatusCardProps) {
   const allStatus = { pending, completed, canceled, refunded };
 
   return (
-    <div className="flex items-center gap-8">
+    <div className="flex items-center gap-2">
       {ORDER_STATUS.map((status, index) => (
         <div key={status} className="flex items-center gap-2">
           <div>{firstLetterCapital(status)}</div>
@@ -35,7 +34,7 @@ export default function OrderStatusCard({ orders }: OrderStatusCardProps) {
             {allStatus[status.toLowerCase() as keyof typeof allStatus].length}
           </div>
 
-          {index < ORDER_STATUS.length - 1 && <Slash />}
+          {index < ORDER_STATUS.length - 1 && <div>|</div>}
         </div>
       ))}
     </div>

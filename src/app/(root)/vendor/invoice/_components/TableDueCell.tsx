@@ -27,7 +27,19 @@ export default function TableDueCell({
     0
   );
 
+  // Payment canceled
+  const canceledPaymentFromBank = rowDataWhichIsInvoice.payment.filter(
+    (payment) => payment.status === "CANCELED"
+  );
+  const totalCanceledAmount = canceledPaymentFromBank.reduce(
+    (acc, payment) => acc + payment.amount,
+    0
+  );
+
   return (
-    <div> {formatCurrencyToNPR(Number(totalAmount) - Number(totalPaid))}</div>
+    <div>
+      {" "}
+      {formatCurrencyToNPR(totalAmount - totalPaid + totalCanceledAmount)}
+    </div>
   );
 }
